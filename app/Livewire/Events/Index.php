@@ -32,7 +32,7 @@ class Index extends Component
             ->when($this->filter === 'past', fn($q) => $q->where('date', '<', now()))
             ->orderBy($this->sort);
     
-        $events = Cache::tags('events')->remember($cacheKey, now()->addMinutes(10), function () use ($query) {
+        $events = Cache::tags('events')->remember($cacheKey, now()->addMinutes(1), function () use ($query) {
             return $query->simplePaginate(10);
         });
     
